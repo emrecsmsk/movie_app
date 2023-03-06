@@ -18,6 +18,7 @@ class SearchMovieTableViewController: UITableViewController {
     var searchMoviesModel = MoviesModel(search:[], response: "")
     let omdbService = OmdbService()
     var movieDetailText = String()
+    var page = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()  
@@ -38,8 +39,26 @@ class SearchMovieTableViewController: UITableViewController {
                 self.refresh()
             }
             
-        }, search: search)
+        }, search: search, page: 1)
     }
+    
+    func fetchMoviesPaging(search:String, page: Int){
+        omdbService.fetchMovies(completion: { moviesModel in
+            
+            if(moviesModel.response == "False"){
+                self.moviesActivityIndicatorView.isHidden = true
+                self.notFoundImage.isHidden = false
+            }else{
+                for i in 0...((moviesModel.search?.count ?? 0)-1){
+                    self.searchMoviesModel.search?.append(moviesModel.search![i])
+                }
+                self.refresh()
+            }
+            
+        }, search: search, page: page)
+    }
+    
+    
     
     func refresh() {
         searchMovieTableView.reloadData()
@@ -77,6 +96,13 @@ class SearchMovieTableViewController: UITableViewController {
         if segue.identifier == "movieDetailWithSearch"{
             let destinationVC = segue.destination as! MovieDetailViewController
             destinationVC.imdb = movieDetailText
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if (indexPath.row == (searchMoviesModel.search?.count ?? 0) - 1 && searchMoviesModel.response == "True" ){
+            page += 1
+            fetchMoviesPaging(search: search, page: page)
         }
     }
 

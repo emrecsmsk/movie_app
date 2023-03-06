@@ -14,9 +14,9 @@ class OmdbService {
     
     
     
-    func fetchMovies(completion: @escaping (MoviesModel) -> Void, search: String){
+    func fetchMovies(completion: @escaping (MoviesModel) -> Void, search: String, page: Int){
         
-        let parameter = ["s":search]
+        let parameter = ["s":search, "page": page] as [String : Any]
         
         let request = AF.request(url, method: .get, parameters: parameter)
         

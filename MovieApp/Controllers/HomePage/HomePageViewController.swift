@@ -109,12 +109,12 @@ class HomePageViewController: UIViewController,UISearchBarDelegate, UICollection
          omdbService.fetchMovies(completion: { moviesModel in
             self.popularMoviesModel = moviesModel
              self.refresh()
-        }, search: popular)
+         }, search: popular, page: 1)
         
         omdbService.fetchMovies(completion: { moviesModel in
             self.trendingNowModel = moviesModel
             self.refresh()
-       }, search: trendingNow)
+        }, search: trendingNow, page: 1)
         
     }
     
