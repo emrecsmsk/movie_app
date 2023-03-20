@@ -11,7 +11,11 @@ class OmdbService {
     
     func fetchMovies(completion: @escaping (MoviesModel) -> Void, search: String, page: Int){
         
-        var request =  URL(string: "https://www.omdbapi.com/?apikey=ec34e385&s=\(search)&page=\(page)")!
+        let queryItems = [URLQueryItem(name: "apikey", value: "ec34e385"), URLQueryItem(name: "s", value: search), URLQueryItem(name: "page", value: "\(page)")]
+        var urlComps = URLComponents(string: "https://www.omdbapi.com/")!
+        urlComps.queryItems = queryItems
+        let request = urlComps.url!
+        
         
         URLSession.shared.dataTask(with: request) { data,res,err  in
             
@@ -38,7 +42,10 @@ class OmdbService {
 
     func fetchMovieDetail(completion: @escaping (MovieDetailModel) -> Void, imdb: String){
         
-        var request =  URL(string: "https://www.omdbapi.com/?apikey=ec34e385&i=\(imdb)")!
+        let queryItems = [URLQueryItem(name: "apikey", value: "ec34e385"),URLQueryItem(name: "i", value: imdb)]
+        var urlComps = URLComponents(string: "https://www.omdbapi.com/")!
+        urlComps.queryItems = queryItems
+        let request = urlComps.url!
         
         URLSession.shared.dataTask(with: request) { data,res,err  in
             
