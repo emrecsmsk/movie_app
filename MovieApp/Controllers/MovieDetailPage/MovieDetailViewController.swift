@@ -52,44 +52,52 @@ class MovieDetailViewController: UIViewController {
     }
     
     @IBAction func refresh(){
-        let url = URL(string: movieDetailModel.poster)
-                
-        movieImage.kf.setImage(with: url)
-        movieNameLabel.text = movieDetailModel.title
-        movieDetailLabel.text = "\(movieDetailModel.year) | \(movieDetailModel.runtime) | \(movieDetailModel.genre)"
-        moviePlotLabel.text = movieDetailModel.plot
         
-        moviesActivityIndicatorView.isHidden = true
-        movieImage.isHidden = false
-        movieNameLabel.isHidden = false
-        movieDetailLabel.isHidden = false
-        moviePlotLabel.isHidden = false
-        actor1Label.isHidden = false
-        actor2Label.isHidden = false
-        actor3Label.isHidden = false
-        actor1Image.isHidden = false
-        actor2Image.isHidden = false
-        actor3Image.isHidden = false
         
-        var actorList = movieDetailModel.actors.split(separator: ",")
-        if(actorList.count>=3){
-            actor1Label.text = String(actorList[0])
-            actor2Label.text = String(actorList[1])
-            actor3Label.text = String(actorList[2])
-        }else if actorList.count>=2{
-            actor1Label.text = String(actorList[0])
-            actor2Label.text = String(actorList[1])
-            actor3Label.text = "NO ACTOR"
-        }else if actorList.count>=1{
-            actor1Label.text = String(actorList[0])
-            actor2Label.text = "NO ACTOR"
-            actor3Label.text = "NO ACTOR"
-        }else {
-            actor1Label.text = "NO ACTOR"
-            actor2Label.text = "NO ACTOR"
-            actor3Label.text = "NO ACTOR"
+        DispatchQueue.main.async {
+            let url = URL(string: self.movieDetailModel.poster)
+                    
+            self.movieImage.kf.setImage(with: url)
+            self.movieNameLabel.text = self.movieDetailModel.title
+            self.movieDetailLabel.text = "\(self.movieDetailModel.year) | \(self.movieDetailModel.runtime) | \(self.movieDetailModel.genre)"
+            self.moviePlotLabel.text = self.movieDetailModel.plot
+            
+            self.moviesActivityIndicatorView.isHidden = true
+            self.movieImage.isHidden = false
+            self.movieNameLabel.isHidden = false
+            self.movieDetailLabel.isHidden = false
+            self.moviePlotLabel.isHidden = false
+            self.actor1Label.isHidden = false
+            self.actor2Label.isHidden = false
+            self.actor3Label.isHidden = false
+            self.actor1Image.isHidden = false
+            self.actor2Image.isHidden = false
+            self.actor3Image.isHidden = false
+            
+            let actorList = self.movieDetailModel.actors.split(separator: ",")
+            if(actorList.count>=3){
+                self.actor1Label.text = String(actorList[0])
+                self.actor2Label.text = String(actorList[1])
+                self.actor3Label.text = String(actorList[2])
+            }else if actorList.count>=2{
+                self.actor1Label.text = String(actorList[0])
+                self.actor2Label.text = String(actorList[1])
+                self.actor3Label.text = "NO ACTOR"
+            }else if actorList.count>=1{
+                self.actor1Label.text = String(actorList[0])
+                self.actor2Label.text = "NO ACTOR"
+                self.actor3Label.text = "NO ACTOR"
+            }else {
+                self.actor1Label.text = "NO ACTOR"
+                self.actor2Label.text = "NO ACTOR"
+                self.actor3Label.text = "NO ACTOR"
+            }
+            }
         }
-        }
+        
+        
+        
+       
         
     }
 

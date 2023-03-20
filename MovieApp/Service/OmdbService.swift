@@ -6,38 +6,60 @@
 //
 
 import Foundation
-import Alamofire
 
 class OmdbService {
     
-    let url = "https://www.omdbapi.com/?apikey=ec34e385&"
-    
-    
-    
     func fetchMovies(completion: @escaping (MoviesModel) -> Void, search: String, page: Int){
         
-        let parameter = ["s":search, "page": page] as [String : Any]
+        var request =  URL(string: "https://www.omdbapi.com/?apikey=ec34e385&s=\(search)&page=\(page)")!
         
-        let request = AF.request(url, method: .get, parameters: parameter)
-        
-        request.responseDecodable(of: MoviesModel.self) { (response) in
+        URLSession.shared.dataTask(with: request) { data,res,err  in
             
-            guard let moviesModel = response.value else {return}
-            completion(moviesModel)
-        }
+            do{
+                
+                if let data = data {
+                    let moviesModel = try JSONDecoder().decode(MoviesModel.self, from: data)
+                    completion(moviesModel)
+                    
+                }else{
+                    print("No Data")
+                }
+                
+     
+            }catch(let error){
+                DispatchQueue.main.async {
+                    print(error.localizedDescription)
+                            }
+                
+            }
+            
+        }.resume()
     }
-    
+
     func fetchMovieDetail(completion: @escaping (MovieDetailModel) -> Void, imdb: String){
         
-        let parameter = ["i":imdb]
+        var request =  URL(string: "https://www.omdbapi.com/?apikey=ec34e385&i=\(imdb)")!
         
-        let request = AF.request(url, method: .get, parameters: parameter)
-        
-        
-        request.responseDecodable(of: MovieDetailModel.self) { (response) in
+        URLSession.shared.dataTask(with: request) { data,res,err  in
             
-            guard let moviesModel = response.value else {return}
-            completion(moviesModel)
-        }
+            do{
+                
+                if let data = data {
+                    let movieDetailModel = try JSONDecoder().decode(MovieDetailModel.self, from: data)
+                    completion(movieDetailModel)
+                    
+                }else{
+                    print("No Data")
+                }
+                
+     
+            }catch(let error){
+                DispatchQueue.main.async {
+                    print(error.localizedDescription)
+                            }
+                
+            }
+            
+        }.resume()
     }
 }

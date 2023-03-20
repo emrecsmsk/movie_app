@@ -30,6 +30,7 @@ class HomePageViewController: UIViewController,UISearchBarDelegate, UICollection
         
         if(ConnectivityControl.isConnectedToInternet != true){
             performSegue(withIdentifier: "noInternetConnection", sender: nil)
+           
         }
 
         
@@ -50,14 +51,16 @@ class HomePageViewController: UIViewController,UISearchBarDelegate, UICollection
     
     
      func refresh() {
-        popularMovieCollectionView.reloadData()
-        trendingNowCollectionView.reloadData()
-        popularMovieLabel.isHidden = false
-        trendingNowLabel.isHidden = false
-        popularMovieCollectionView.isHidden = false
-        trendingNowCollectionView.isHidden = false
-        moviesActivityIndicatorView.isHidden = true
-        
+         DispatchQueue.main.async {
+             self.popularMovieCollectionView.reloadData()
+             self.trendingNowCollectionView.reloadData()
+             self.popularMovieLabel.isHidden = false
+             self.trendingNowLabel.isHidden = false
+             self.popularMovieCollectionView.isHidden = false
+             self.trendingNowCollectionView.isHidden = false
+             self.moviesActivityIndicatorView.isHidden = true
+         }
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

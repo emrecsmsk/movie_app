@@ -10,16 +10,24 @@ import Alamofire
 
 class NoInternetConnectionViewController: UIViewController {
     
-    @IBOutlet weak var noInternetConnectionImage: UIImageView!
-    
+    @IBOutlet weak var tryAgainActivityIndicator: UIActivityIndicatorView!
     @IBAction func tryAgain(_ sender: Any) {
+        tryAgainActivityIndicator.startAnimating();
+        self.tryAgainActivityIndicator.isHidden = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.tryAgainActivityIndicator.isHidden = true
+        }
+        
+        
         if(ConnectivityControl.isConnectedToInternet == true){
             navigationController?.popToRootViewController(animated: true)
         }
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.hidesBackButton = true;
+        self.navigationItem.hidesBackButton = true
+        self.tryAgainActivityIndicator.isHidden = true
     }
 }
 

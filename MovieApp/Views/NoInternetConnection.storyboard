@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--No Internet Connection View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="NoInternetConnection" id="Y6W-OH-hqX" customClass="NoInternetConnectionViewController" customModule="MovieApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7NK-iE-Eoe">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NoInternetConnection" translatesAutoresizingMaskIntoConstraints="NO" id="Gsg-OI-kBL">
+                                <rect key="frame" x="0.0" y="229.66666666666663" width="393" height="393"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="393" id="7Cd-Wo-Mxa"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U03-kn-JpE">
+                                <rect key="frame" x="148.66666666666666" y="692.66666666666663" width="96" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="B39-3A-tMF"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Try Again"/>
+                                <connections>
+                                    <action selector="tryAgain:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="cKX-bB-xYB"/>
+                                </connections>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="eiC-kg-G8Q">
+                                <rect key="frame" x="186" y="630" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ThS-6g-4iV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ThS-6g-4iV" firstAttribute="trailing" secondItem="Gsg-OI-kBL" secondAttribute="trailing" id="Mt7-ee-IlT"/>
+                            <constraint firstItem="U03-kn-JpE" firstAttribute="centerX" secondItem="7NK-iE-Eoe" secondAttribute="centerX" id="dhQ-CP-hoB"/>
+                            <constraint firstItem="Gsg-OI-kBL" firstAttribute="centerY" secondItem="7NK-iE-Eoe" secondAttribute="centerY" id="p6q-i0-wma"/>
+                            <constraint firstItem="Gsg-OI-kBL" firstAttribute="centerX" secondItem="ThS-6g-4iV" secondAttribute="centerX" id="pnz-kf-dxn"/>
+                            <constraint firstItem="U03-kn-JpE" firstAttribute="top" secondItem="Gsg-OI-kBL" secondAttribute="bottom" constant="70" id="t8w-Ud-ZTR"/>
+                            <constraint firstItem="Gsg-OI-kBL" firstAttribute="leading" secondItem="ThS-6g-4iV" secondAttribute="leading" id="wrC-uc-h5s"/>
+                            <constraint firstItem="Gsg-OI-kBL" firstAttribute="centerX" secondItem="7NK-iE-Eoe" secondAttribute="centerX" id="x5V-yU-Azg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tryAgainActivityIndicator" destination="eiC-kg-G8Q" id="bxC-Uf-JfR"/>
+                        <segue destination="J6F-8n-5me" kind="show" id="LYF-Yr-09L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="78.625954198473281" y="-2.1126760563380285"/>
+        </scene>
+        <!--HomePage-->
+        <scene sceneID="MF4-o0-dgn">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wSE-Nf-ai8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="HomePage" id="J6F-8n-5me" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="bRX-yj-DjF"/>
+                </viewControllerPlaceholder>
+            </objects>
+            <point key="canvasLocation" x="708" y="-2"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="NoInternetConnection" width="2000" height="2000"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

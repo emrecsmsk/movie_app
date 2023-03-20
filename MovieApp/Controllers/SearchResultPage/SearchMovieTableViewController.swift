@@ -61,8 +61,11 @@ class SearchMovieTableViewController: UITableViewController {
     
     
     func refresh() {
-        searchMovieTableView.reloadData()
-        moviesActivityIndicatorView.isHidden = true
+        DispatchQueue.main.async {
+            self.searchMovieTableView.reloadData()
+            self.moviesActivityIndicatorView.isHidden = true
+        }
+        
     }
 
     // MARK: - Table view data source
