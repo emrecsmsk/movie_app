@@ -29,17 +29,17 @@ class OmdbService {
                     print("No Data")
                 }
                 
-     
+                
             }catch(let error){
                 DispatchQueue.main.async {
                     print(error.localizedDescription)
-                            }
+                }
                 
             }
             
         }.resume()
     }
-
+    
     func fetchMovieDetail(completion: @escaping (MovieDetailModel) -> Void, imdb: String){
         
         let queryItems = [URLQueryItem(name: "apikey", value: "ec34e385"),URLQueryItem(name: "i", value: imdb)]
@@ -59,11 +59,11 @@ class OmdbService {
                     print("No Data")
                 }
                 
-     
+                
             }catch(let error){
                 DispatchQueue.main.async {
                     print(error.localizedDescription)
-                            }
+                }
                 
             }
             

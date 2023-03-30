@@ -32,35 +32,27 @@ class MovieDetailViewController: UIViewController {
     
     @IBOutlet weak var actor3Image: UIImageView!
     
+    var viewModel = MovieDetailViewModel()
+    
     var imdb = String()
-    var movieDetailModel = MovieDetailModel(title: "", year: "", runtime: "", genre: "", plot: "", actors: "", poster: "", imdbRating: "")
-    let omdbService = OmdbService()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        moviesActivityIndicatorView.startAnimating()
-        fetchMovieDetail(imdb: imdb)
-    }
-    
 
-    func fetchMovieDetail(imdb: String){
-        omdbService.fetchMovieDetail(completion: { movieDetailModel in
-            self.movieDetailModel = movieDetailModel
-            self.refresh()
-        }, imdb: imdb)
+        viewModel.fetchMovieDetail(imdb: imdb)
+        initObservers()
+        moviesActivityIndicatorView.startAnimating()
     }
     
-    @IBAction func refresh(){
-        
+    func refresh(){
         
         DispatchQueue.main.async {
-            let url = URL(string: self.movieDetailModel.poster)
-                    
+            let url = URL(string: (self.viewModel.movieDetailModel.value?.poster)!)
+            
             self.movieImage.kf.setImage(with: url)
-            self.movieNameLabel.text = self.movieDetailModel.title
-            self.movieDetailLabel.text = "\(self.movieDetailModel.year) | \(self.movieDetailModel.runtime) | \(self.movieDetailModel.genre)"
-            self.moviePlotLabel.text = self.movieDetailModel.plot
+            self.movieNameLabel.text = self.viewModel.movieDetailModel.value?.title
+            self.movieDetailLabel.text = "\((self.viewModel.movieDetailModel.value?.year) ?? "2000")  | \((self.viewModel.movieDetailModel.value?.runtime) ?? "140min") | \((self.viewModel.movieDetailModel.value?.genre) ?? "")"
+            self.moviePlotLabel.text = self.viewModel.movieDetailModel.value?.plot
             
             self.moviesActivityIndicatorView.isHidden = true
             self.movieImage.isHidden = false
@@ -74,17 +66,17 @@ class MovieDetailViewController: UIViewController {
             self.actor2Image.isHidden = false
             self.actor3Image.isHidden = false
             
-            let actorList = self.movieDetailModel.actors.split(separator: ",")
-            if(actorList.count>=3){
-                self.actor1Label.text = String(actorList[0])
-                self.actor2Label.text = String(actorList[1])
-                self.actor3Label.text = String(actorList[2])
-            }else if actorList.count>=2{
-                self.actor1Label.text = String(actorList[0])
-                self.actor2Label.text = String(actorList[1])
+            let actorList = self.viewModel.movieDetailModel.value?.actors.split(separator: ",")
+            if (actorList?.count ?? 0)>=3 {
+                self.actor1Label.text = String(actorList?[0] ?? "NO ACTOR")
+                self.actor2Label.text = String(actorList?[1] ?? "NO ACTOR")
+                self.actor3Label.text = String(actorList?[2] ?? "NO ACTOR")
+            }else if (actorList?.count ?? 0)>=2{
+                self.actor1Label.text = String(actorList?[0] ?? "NO ACTOR")
+                self.actor2Label.text = String(actorList?[1] ?? "NO ACTOR")
                 self.actor3Label.text = "NO ACTOR"
-            }else if actorList.count>=1{
-                self.actor1Label.text = String(actorList[0])
+            }else if (actorList?.count ?? 0)>=1{
+                self.actor1Label.text = String(actorList?[0] ?? "NO ACTOR")
                 self.actor2Label.text = "NO ACTOR"
                 self.actor3Label.text = "NO ACTOR"
             }else {
@@ -92,13 +84,19 @@ class MovieDetailViewController: UIViewController {
                 self.actor2Label.text = "NO ACTOR"
                 self.actor3Label.text = "NO ACTOR"
             }
-            }
         }
         
         
         
-       
-        
     }
+    
+    private func initObservers() {
+        viewModel.movieDetailModel.bind { movie in
+            self.refresh()
+            
+        }
+    }
+    
+}
 
 
